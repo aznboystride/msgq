@@ -1,17 +1,20 @@
+/**
+ * CECS 326 OPERATING SYSTEM
+ * sender997.cpp
+ * Purpose: Sends random 32-bit unsigned integers to the first receiver program and the second receiver program
+ *          and terminates after observing a random number less than 100.
+ */
+
+#include <iostream>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
-#include <cstring>
-#include <iostream>
-#include <unistd.h>
 #include <sys/wait.h>
-#include <cstdlib>
-#include <string.h>
-#include <random> 
-#include <signal.h>
+#include <unistd.h>
+#include <random>
 #include <ctime>
-#include <cerrno>
-#include <thread>
+#include <climits>
 
 #define SEND_RECV1 9971
 
@@ -21,20 +24,18 @@
 
 #define RECV_RECV2 2997
 
-#define INT_MAX 2147483647
-
 using namespace std;
 
 int main() {
-  sleep(5);
+  
   pid_t thisPid = getpid();
 
-  uniform_int_distribution<> rng(0, INT_MAX);
-  mt19937 gen;
-  gen.seed(random_device()());
-
+  uniform_int_distribution<int> distribution(0, UINT_MAX); // Distribution Range: [0 - 2^32-1)
+  mt19937 generator(random_device()()); // Mersenne Twister Pseudorandom Generator
 
   cout << "This Process's PID: " << thisPid << endl;
+
+  sleep(5);
 
   struct buf {
     long mtype;
@@ -49,6 +50,7 @@ int main() {
 
   int random_num;
   bool term2 = false;
+
   for(;;) {
     random_num = rng(gen);
     if(random_num % 997 == 0 || random_num < 100) {

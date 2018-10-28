@@ -1,17 +1,21 @@
+/**
+ * CECS 326 OPERATING SYSTEM
+ * receiver1.cpp
+ * Purpose: Replies with acknowledgements whenever it receives messages from the senders
+ *          sender251 and sender997. This program terminates when both sender251 and sender997
+ *          programs have terminated.
+ */
+
+#include <iostream>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
-#include <cstring>
-#include <iostream>
-#include <unistd.h>
 #include <sys/wait.h>
-#include <cstdlib>
-#include <string.h>
+#include <unistd.h>
 #include <random> 
-#include <signal.h>
 #include <ctime>
-#include <cerrno>
-#include <thread>
+#include <climits>
 
 #define SEND_997 1997
 
@@ -24,10 +28,12 @@
 using namespace std;
 
 int main() {
-  sleep(5);
+
   pid_t thisPid = getpid();
 
   cout << "This Process's PID: " << thisPid << endl;
+
+  sleep(5);
 
   struct buf {
     long mtype;

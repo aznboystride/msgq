@@ -1,17 +1,20 @@
+/**
+ * CECS 326 OPERATING SYSTEM
+ * sender257.cpp
+ * Purpose: Sends random 32-bit unsigned integers to the second receiver program
+ *          and terminates when the receiver program terminates.
+ */
+
+#include <iostream>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
-#include <cstring>
-#include <iostream>
-#include <unistd.h>
 #include <sys/wait.h>
-#include <cstdlib>
-#include <string.h>
+#include <unistd.h>
 #include <random> 
-#include <signal.h>
 #include <ctime>
-#include <cerrno>
-#include <thread>
+#include <climits>
 
 #define SEND_RECV2 2572
 
@@ -23,11 +26,12 @@ int main() {
   
   pid_t thisPid = getpid();
 
-  uniform_int_distribution<> rng(0, 2147483647);
-  mt19937 gen;
-  gen.seed(random_device()());
-  sleep(5);
+  uniform_int_distribution<int> distribution(0, UINT_MAX); // Distribution Range: [0 - 2^32-1)
+  mt19937 generator(random_device()()); // Mersenne Twister Pseudorandom Generator
+
   cout << "This Process's PID: " << thisPid << endl;
+
+  sleep(5);
 
   struct buf {
     long mtype;
