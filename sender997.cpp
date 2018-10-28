@@ -30,8 +30,9 @@ int main() {
   
   pid_t thisPid = getpid();
 
-  uniform_int_distribution<int> distribution(0, UINT_MAX); // Distribution Range: [0 - 2^32-1)
-  mt19937 generator(random_device()()); // Mersenne Twister Pseudorandom Generator
+  random_device rd;
+  uniform_int_distribution<int> distribution(0, INT_MAX); // Distribution Range: [0 - 2^31-1)
+  mt19937 generator(rd()); // Mersenne Twister Pseudorandom Generator
 
   cout << "This Process's PID: " << thisPid << endl;
 
