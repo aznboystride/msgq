@@ -46,7 +46,7 @@ int main() {
 
   int random_num;
   for(;;) {
-    random_num = rng(gen);
+    random_num = distribution(generator);
     if(random_num % 257 == 0) {
       msg.mtype = SEND_RECV2;
       msg.num = random_num;

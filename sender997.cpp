@@ -52,7 +52,7 @@ int main() {
   bool term2 = false;
 
   for(;;) {
-    random_num = rng(gen);
+    random_num = distribution(generator);
     if(random_num % 997 == 0 || random_num < 100) {
       msg.mtype = SEND_RECV1;
       msg.num = random_num;
