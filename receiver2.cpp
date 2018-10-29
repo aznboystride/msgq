@@ -48,6 +48,7 @@ int main() {
   bool term997 = false;
   for(int msgcount = 0; msgcount < 5000; msgcount++) {
     if(!term997) {
+      msgcount++;
       msgrcv(qid, (struct msgbuf*) &msg, size, RECV_997, 0);
       cout << msg.message << " " << msg.num << endl;
       if(msg.num < 100) {
